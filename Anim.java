@@ -4,6 +4,8 @@ import javax.swing.*;
 public class Anim extends JApplet implements Runnable
 {
    private Thread animation;
+   int Coord0X;int Coord0Y;
+   
    public void init()
    {
       // récupération des paramètres et création des objets
