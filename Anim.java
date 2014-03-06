@@ -4,8 +4,8 @@ import javax.swing.*;
 public class Anim extends JApplet implements Runnable
 {
 	private Thread animation;
-	int tabCoordX[] = new int[];
-	int tabCoordY[] = new int[];
+	int tabCoordX[] = new int[255];
+	int tabCoordY[] = new int[255];
 	int tabCoordVilleX[] = new int[5];
 	int tabCoordVilleY[] = new int[5];
 	String tabNomVille[] = new String[10];
@@ -78,6 +78,7 @@ public class Anim extends JApplet implements Runnable
 
 		for(int n = 0 ; n<tabCoordVilleY.length;++n) // boucle CoordY des villes
 		{
+			String TempVille= " ";
 			try
 			{
 				if (!getParameter("yVille" + n).equals(null))
