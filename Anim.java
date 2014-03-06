@@ -4,11 +4,11 @@ import javax.swing.*;
 public class Anim extends JApplet implements Runnable
 {
 	private Thread animation;
-	int tabCoordX[] = new int[255];
-	int tabCoordY[] = new int[255];
+	int tabCoordX[] = new int[20];
+	int tabCoordY[] = new int[20];
 	int tabCoordVilleX[] = new int[5];
 	int tabCoordVilleY[] = new int[5];
-	String tabNomVille[] = new String[10];
+	String tabNomVille[] = new String[5];
 
 	public void init()
 	{
