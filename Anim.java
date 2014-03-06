@@ -99,28 +99,30 @@ public class Anim extends JApplet implements Runnable
    public void paint( Graphics g )
    {
       // affichage des objets graphiques
-   
-      //Affichage des noms de villes
-      for(int j = 0;j<tabNomVille.length;++j)
-      {
-      	g.drawString(tabNomVille[j],tabCoordVilleX[j],tabCoordVilleY[j]+10); //A tester .. decaler de quelques Y pour ne pas écrire directement sur le point
-      }
-      //Dessiner Polygone
+   	setBackground(Color.BLUE);
+   	  //Dessiner Polygone
       Polygon p = new Polygon();
       for(int i = 0;i<tabCoordX.length;++i)
       {
       	p.addPoint(tabCoordX[i],tabCoordY[i]); // Ajouter tout les points par les tableaux	
       }
-      g.drawPolygon(p); // Dessiner polygon
-      g.setColor(Color.GREEN); // Remplir en quel couleur
-      g.fillPolygon(p); // Remplir en vert
       
-      //Dessiner cercle sur coord des ville
+      
+      //Affichage des noms de villes
+      for(int j = 0;j<tabNomVille.length;++j)
+      {
+      	g.drawString(tabNomVille[j],tabCoordVilleX[j]+20,tabCoordVilleY[j]+20); //A tester .. decaler de quelques Y pour ne pas écrire directement sur le point
+      }
+        //Dessiner cercle sur coord des ville
       for (int k = 0 ; k<tabCoordVilleX.length;++k)
       {
       	g.drawOval(tabCoordVilleX[k],tabCoordVilleY[k],10,10); // Mesure pas exacte a essayer
       	g.fillOval(tabCoordVilleX[k],tabCoordVilleY[k],10,10);
       }
+      g.drawPolygon(p); // Dessiner polygon
+      g.setColor(Color.GREEN); // Remplir en quel couleur
+      g.fillPolygon(p); // Remplir en vert
+    
       
    }
 
