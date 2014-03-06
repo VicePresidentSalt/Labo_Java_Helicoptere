@@ -3,41 +3,41 @@ import javax.swing.*;
 	
 public class Anim extends JApplet implements Runnable
 {
-   private Thread animation;
-   int Coord0X;int Coord0Y;
-   int Coord1X;int Coord1Y;
-   int Coord2X;int Coord2Y;
-   int Coord3X;int Coord3Y;
-   int Coord4X;int Coord4Y;
-   int Coord5X;int Coord5Y;
-   int Coord6X;int Coord6Y;
-   int Coord7X;int Coord7Y;
-   int Coord8X;int Coord8Y;
-   int Coord9X;int Coord9Y;
-   int Coord10X;int Coord10Y;
-   int Coord11X;int Coord11Y;
-   int Coord12X;int Coord12Y;
-   int Coord13X;int Coord13Y;
-   int Coord14X;int Coord14Y;
-   int Coord15X;int Coord15Y;
-   int Coord16X;int Coord16Y;
-   int Coord17X;int Coord17Y;
-   int Coord18X;int Coord18Y;
-   int Coord19X;int Coord19Y;
-   int CoordVille0X;int CoordVille0Y;
-   int CoordVille1X;int CoordVille1Y;
-   int CoordVille2X;int CoordVille2Y;
-   int CoordVille3X;int CoordVille3Y;
-   int CoordVille4X;int CoordVille4Y;
-   String nomDeVille0;
-   String nomDeVille1;
-   String nomDeVille2;
-   String nomDeVille3;
-   String nomDeVille4;
-   
+   private Thread animation;¸
+   	
    public void init()
    {
-      // récupération des paramètres et création des objets
+      int tabCoordX[] = new int[20];
+      int tabCoordY[] = new int[20];
+      int tabCoordVilleX = new int[5];
+      int tabCoordVilleY = new int[5];
+      String tabNomVille = new String[5];
+      
+      for(int i = 0 ; i<tabCoordX.length;++i) // boucle CoordX du polygone
+      {
+      	tabCoordX[i] = getParameter("x"+[i]);
+      	
+      	for(int j = 0 ; j<tabCoordY.length;++j) // boucle CoordY du polygone
+      	{
+      		tabCoordY[j] = getParameter("y"+[j]);	
+      	}	
+      }
+   
+      for(int v = 0 ; v<tabNomVille.length;++v) // boucle nom de ville
+      {
+      	tabNomVille[v] = getParameter("nomVille"+[v])
+      }
+      
+      for(int b = 0 ; b<tabCoordVilleX.length;++b) // boucle CoordX des villes
+      {
+      	tabCoordVilleX[b] = getParameter("xVille"+[b]);
+      	
+      	for(int n = 0 ; n<tabCoordVilleY.length;++n) // boucle CoordY des villes
+      	{
+      		tabCoordVilleX[n] = getParameter("yVille"+[n]);	
+      	}	
+      }
+      
    }
 
    public void start()
