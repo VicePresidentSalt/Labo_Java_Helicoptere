@@ -74,39 +74,66 @@ public class Anim extends JApplet implements Runnable
 
 	}
 
-	public void start()
-	{
-		if( animation == null )
-		{
-			animation = new Thread( this );
-			animation.start();
-		}
-	}
+	 public void start()
+   {
+      if( animation == null )
+      {
+         animation = new Thread( this );
+         animation.start();
+      }
+   }
 
-	public void stop()
-	{
-		if( animation != null )
-		{
-			animation = null;
-		}
-	}
+   public void stop()
+   {
+      if( animation != null )
+      {
+         animation = null;
+      }
+   }
 
-	public void paint( Graphics g )
-	{
-		boolean pasFini = true;
-		while( pasFini )
-		{
-			// calcul de la nouvelle position des objets graphiques
+   public void paint( Graphics g )
+   {
+      // affichage des objets graphiques
+      
+      //Affichage des noms de villes
+      for(int j = 0;j<tabNomVille.length;++j)
+      g.drawString(tabNomVille[j],tabCoordVilleX[j],tabCoordVilleY[j]+10) //A tester .. decaler de quelques Y pour ne pas écrire directement sur le point
+      
+      //Dessiner Polygone
+      Polygon p = new Polygon();
+      for(int i = 0;i<tabCoordX.length;++i)
+      {
+      	p.addPoint(tabCoordX[i],tabCoordY[i]) // Ajouter tout les points par les tableaux	
+      }
+      g.drawPolygon(p); // Dessiner polygon
+      g.setColor(Color.GREEN); // Remplir en quel couleur
+      g.fillPolygon(p); // Remplir en vert
+      
+      //Dessiner cercle sur coord des ville
+      for (int k = 0 ; k<tabCoordVilleX.length;++k)
+      {
+      	g.drawOval(tabCoordVilleX[k],tabCoordVilleY[k],10,10) // Mesure pas exacte a essayer
+      	g.fillOval(tabCoordVilleX[k],tabCoordVilleY[k],10,10)
+      }
+      
+   }
 
-			try
-			{
-				Thread.sleep( DELAI );
-				repaint();
-			}
-			catch( InterruptedException ie )
-			{
-				// ne devrait jamais arriver
-			}
-		}
-	}
+   public void run()
+   {
+      boolean pasFini = true;
+      while( pasFini )
+      {
+         // calcul de la nouvelle position des objets graphiques
+
+         try
+         {
+            Thread.sleep( DELAI );
+            repaint();
+         }
+         catch( InterruptedException ie )
+         {
+            // ne devrait jamais arriver
+         }
+      }
+   }
 }
