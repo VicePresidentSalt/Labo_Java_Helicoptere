@@ -164,7 +164,6 @@ public class Australie extends JApplet implements Runnable
        final int DEPLACEMENT =5;
        switch(direction)
        {
-
          case 0:
          {
             if(posX+DEPLACEMENT < MAXX || posY-DEPLACEMENT < 0 )
@@ -184,6 +183,8 @@ public class Australie extends JApplet implements Runnable
             break;
          }
          case 1:
+
+       
          {
             if(posX-DEPLACEMENT > 0 || posY+DEPLACEMENT < MAXY)
             {
