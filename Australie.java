@@ -4,51 +4,54 @@ import javax.swing.*;
 public class Australie extends JApplet implements Runnable
 {
 	private Thread animation;
-	int tabCoordX[] = new int[20];
-	int tabCoordY[] = new int[20];
-	int tabCoordVilleX[] = new int[5];
-	int tabCoordVilleY[] = new int[5];
-	String tabNomVille[] = new String[5];
+	int tabCoordVilleX[] = new int[10];
+	int tabCoordVilleY[] = new int[10];
+	String tabNomVille[] = new String[10];
+   Polygon australie = new Polygon();
+   private int posX = 50;
+   private int posY = 50;
 
 	public void init()
 	{
-		for(int i = 0 ; i<tabCoordX.length;++i) // boucle CoordX du polygone
-		{
-			String temp =" ";
-			try
-			{
-				if (!getParameter("x" + i).equals(null))
-				{
-					temp = getParameter("x"+i); // recupération du string HTML et mettre dans temp
-					tabCoordX[i] = Integer.parseInt(temp); // conversion du string temp -> int et mettre dans tab position adéquate
-				}
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
+	  Boolean pasFini = true;
+	  int i= 0;
+	  int j= 0;
+	  String x = " ";
+	  String y = " ";
+	  int CoordX = 0;
+	  int CoordY = 0;
 
-			for(int j = 0 ; j<tabCoordY.length;++j) // boucle CoordY du polygone
-			{
-				try
-				{
-					if (!getParameter("y" + j).equals(null))
-					{
-						temp = getParameter("y"+j);
-						tabCoordY[j] = Integer.parseInt(temp);	
-					}
+	  while(pasFini)
+	  {
+        x=getParameter("x"+i);
+        y=getParameter("y"+j);
+        if(x!=null && y!=null)
+        {
+         try
+         {
+           CoordX = Integer.parseInt(x);
+           CoordY = Integer.parseInt(y);
+           australie.addPoint(CoordX,CoordY);
+           ++i;
+           ++j;
+         }
+         catch(NumberFormatException e)
+         {
+            pasFini = false;
+         }
 
-				}
-				catch(Exception e)
-				{
-					e.printStackTrace();
-				}	
-			}
-		}
+        }
+        else
+        {
+         pasFini = false;
+        }
+
+	  }
+
 
 		for(int v = 0 ; v<tabNomVille.length;++v) // boucle nom de ville
 		{
-			if (!getParameter("nomville" + v).equals(null))
+			if (getParameter("nomville" + v)!=null)
 			{
 				tabNomVille[v] = getParameter("nomVille"+v);
 			}
@@ -59,7 +62,7 @@ public class Australie extends JApplet implements Runnable
 			String TempVille = " ";
 			try
 			{
-				if (!getParameter("xVille" + b).equals(null))
+				if (getParameter("xVille" + b)!=(null))
 				{
 					TempVille= getParameter("xVille"+b);
 					tabCoordVilleX[b] = Integer.parseInt(TempVille);
@@ -70,7 +73,7 @@ public class Australie extends JApplet implements Runnable
 			catch(Exception e)
 			{
 				e.printStackTrace();
-			}	
+			}
 		}
 
 
@@ -79,7 +82,7 @@ public class Australie extends JApplet implements Runnable
 			String TempVille= " ";
 			try
 			{
-				if (!getParameter("yVille" + n).equals(null))
+				if (getParameter("yVille" + n)!=(null))
 				{
 					TempVille= getParameter("yVille"+n);
 					tabCoordVilleY[n] = Integer.parseInt(TempVille);
@@ -89,7 +92,7 @@ public class Australie extends JApplet implements Runnable
 			catch(Exception e)
 			{
 				e.printStackTrace();
-			}	
+			}
 		}
 
 	}
@@ -116,44 +119,135 @@ public class Australie extends JApplet implements Runnable
 		// affichage des objets graphiques
 
 		//Dessiner Polygone
-		Polygon p = new Polygon();
-		for(int i = 0;i<tabCoordX.length;++i)
-		{
-			p.addPoint(tabCoordX[i],tabCoordY[i]); // Ajouter tout les points par les tableaux	
-		}
-		setBackground(Color.BLUE);
-		g.drawPolygon(p); // Dessiner polygon
-		g.setColor(Color.GREEN); // Remplir en quel couleur
-		g.fillPolygon(p); // Remplir en vert
+		g.setColor(Color.CYAN);
+		g.fillRect(0,0,this.getSize().width,this.getSize().height);
+      g.setColor(Color.GREEN); // Remplir en quel couleur
+		g.drawPolygon(australie); // Dessiner polygon
+		g.fillPolygon(australie); // Remplir en vert
+
+      //Dessiner cercle sur coord des ville
+      for (int k = 0 ; k<5;++k) // ******Hardcodé a 5 mais a régler********* cuz toute les autre ville font un point a 0,0
+      {
+         g.setColor(Color.BLACK);
+         g.drawOval(tabCoordVilleX[k],tabCoordVilleY[k],10,10); // Mesure pas exacte a essayer
+         g.fillOval(tabCoordVilleX[k],tabCoordVilleY[k],10,10);
+      }
+
+      //Affichage du String Australie
+      Font f = new Font("SansSerif",Font.BOLD,25);
+      g.setFont(f);
+      g.setColor(Color.BLACK);
+      g.drawString("AUSTRALIE",0,420);
+
+      //Affichage du point qui va bouger
+      g.setColor(Color.BLACK);
+      g.drawOval(posX,posY,15,15);
+      g.fillOval(posX,posY,15,15);
 
 		//Affichage des noms de villes
 		for(int j = 0;j<tabNomVille.length;++j)
 		{
+         Font t = new Font("SansSerif",Font.PLAIN,12);
+         g.setFont(t);
 			g.setColor(Color.BLACK);
 			g.drawString(tabNomVille[j],tabCoordVilleX[j]+20,tabCoordVilleY[j]+20); //A tester .. decaler de quelques Y pour ne pas écrire directement sur le point
 		}
-		//Dessiner cercle sur coord des ville
-		for (int k = 0 ; k<tabCoordVilleX.length;++k)
-		{
-			g.setColor(Color.BLACK);
-			g.drawOval(tabCoordVilleX[k],tabCoordVilleY[k],10,10); // Mesure pas exacte a essayer
-			g.fillOval(tabCoordVilleX[k],tabCoordVilleY[k],10,10);
-		}
-
-
 
 	}
+
+   public void bougerPoint()
+   {
+       boolean horsLimite = false;
+       final int DEPLACEMENT =5;
+       int direction=0;
+       if(direction == 0)
+       {
+         if(posX < 640 || posY < 0 )
+         {
+            posX = posX+DEPLACEMENT;
+            posY = posY-DEPLACEMENT;
+            System.out.println(posX);
+            System.out.println(posY);
+         }
+
+         else
+         {
+            horsLimite = true;
+         }
+
+         if(horsLimite)
+         {
+            direction = 1;
+         }
+       }
+       if(direction == 1)
+       {
+
+         if(posX > 0 || posY < 480)
+         {
+            posX = posX-DEPLACEMENT;
+            posY = posY+DEPLACEMENT;
+         }
+         else
+         {
+            horsLimite = true;
+         }
+
+         if(horsLimite)
+         {
+            direction = 2;
+         }
+       }
+       if(direction == 2)
+       {
+
+         if(posX > 0 || posY < 0)
+         {
+             posX = posX-DEPLACEMENT;
+             posY = posY-DEPLACEMENT;
+         }
+         else
+         {
+            horsLimite = true;
+         }
+         if(horsLimite)
+         {
+            direction = 3;
+         }
+       }
+       if(direction == 3)
+       {
+
+         if(posX < 640 || posY < 480)
+         {
+            posX = posX+DEPLACEMENT;
+            posY = posY+DEPLACEMENT;
+         }
+         else
+         {
+            horsLimite = true;
+         }
+
+
+         if(horsLimite)
+         {
+            direction = 0;
+         }
+       }
+
+
+   }
 
 	public void run()
 	{
 		boolean pasFini = true;
 		while( pasFini )
 		{
-			// calcul de la nouvelle position des objets graphiques
+        bougerPoint();
 
 			try
 			{
-				Thread.sleep( 3000 ); //delai 3 secondes...a checker
+				Thread.sleep( 1000 ); //delai 3 secondes...a checker
 				repaint();
 			}
 			catch( InterruptedException ie )
