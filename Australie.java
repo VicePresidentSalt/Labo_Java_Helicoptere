@@ -8,8 +8,11 @@ public class Australie extends JApplet implements Runnable
 	int tabCoordVilleY[] = new int[10];
 	String tabNomVille[] = new String[10];
    Polygon australie = new Polygon();
-   private int posX = 50;
-   private int posY = 50;
+   final int MAXX = this.size().width;
+   final int MAXY = this.size().height;
+   private int posX = (int)Math.random()*(MAXX);
+   private int posY = (int)Math.random()*(MAXY);
+   private int direction = 0;
 
 	public void init()
 	{
@@ -159,95 +162,91 @@ public class Australie extends JApplet implements Runnable
    {
        boolean horsLimite = false;
        final int DEPLACEMENT =5;
-       int direction=0;
-       if(direction == 0)
-       {
-         if(posX < 640 || posY < 0 )
-         {
-            posX = posX+DEPLACEMENT;
-            posY = posY-DEPLACEMENT;
-            System.out.println(posX);
-            System.out.println(posY);
-         }
-
-         else
-         {
-            horsLimite = true;
-         }
-
-         if(horsLimite)
-         {
-            direction = 1;
-         }
-       }
-       if(direction == 1)
+       switch(direction)
        {
 
-         if(posX > 0 || posY < 480)
+         case 0:
          {
-            posX = posX-DEPLACEMENT;
-            posY = posY+DEPLACEMENT;
-         }
-         else
-         {
-            horsLimite = true;
-         }
+            if(posX+DEPLACEMENT < MAXX || posY-DEPLACEMENT < 0 )
+            {
+               posX +=DEPLACEMENT;
+               posY -=DEPLACEMENT;
+            }
+            else
+            {
+               horsLimite = true;
+            }
 
-         if(horsLimite)
+            if(horsLimite)
+            {
+               direction = (int)Math.random()*4;
+            }
+            break;
+         }
+         case 1:
          {
-            direction = 2;
+            if(posX-DEPLACEMENT > 0 || posY+DEPLACEMENT < MAXY)
+            {
+               posX = posX-DEPLACEMENT;
+               posY = posY+DEPLACEMENT;
+            }
+            else
+            {
+               horsLimite = true;
+            }
+
+            if(horsLimite)
+            {
+               direction = (int)Math.random()*4;
+            }
+            break;
+         }
+         case 2:
+         {
+            if(posX-DEPLACEMENT > 0 || posY-DEPLACEMENT < 0)
+            {
+                posX = posX-DEPLACEMENT;
+                posY = posY-DEPLACEMENT;
+            }
+            else
+            {
+               horsLimite = true;
+            }
+            if(horsLimite)
+            {
+               direction = (int)Math.random()*4;
+            }
+            break;
+         }
+         case 3:
+         {
+            if(posX+DEPLACEMENT < MAXX || posY+DEPLACEMENT < MAXY)
+            {
+               posX = posX+DEPLACEMENT;
+               posY = posY+DEPLACEMENT;
+            }
+            else
+            {
+               horsLimite = true;
+            }
+            if(horsLimite)
+            {
+               direction = (int)Math.random()*4;
+            }
+            break;
          }
        }
-       if(direction == 2)
-       {
-
-         if(posX > 0 || posY < 0)
-         {
-             posX = posX-DEPLACEMENT;
-             posY = posY-DEPLACEMENT;
-         }
-         else
-         {
-            horsLimite = true;
-         }
-         if(horsLimite)
-         {
-            direction = 3;
-         }
-       }
-       if(direction == 3)
-       {
-
-         if(posX < 640 || posY < 480)
-         {
-            posX = posX+DEPLACEMENT;
-            posY = posY+DEPLACEMENT;
-         }
-         else
-         {
-            horsLimite = true;
-         }
-
-
-         if(horsLimite)
-         {
-            direction = 0;
-         }
-       }
-
-
    }
 
 	public void run()
 	{
 		boolean pasFini = true;
-		while( pasFini )
+		while( pasFini )//boucle infinie
 		{
-        bougerPoint();
-
 			try
 			{
-				Thread.sleep( 1000 ); //delai 3 secondes...a checker
+            bougerPoint();
+				Thread.sleep( 500 ); //delai 3 secondes...a checker
 				repaint();
 			}
 			catch( InterruptedException ie )
