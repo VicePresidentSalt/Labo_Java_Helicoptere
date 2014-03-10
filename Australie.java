@@ -10,8 +10,8 @@ public class Australie extends JApplet implements Runnable
    Polygon australie = new Polygon();
    final int MAXX = this.size().width;
    final int MAXY = this.size().height;
-   private int posX = (int)Math.random()*(MAXX);
-   private int posY = (int)Math.random()*(MAXY);
+   private int posX = (int)(Math.random()*MAXX);
+   private int posY = (int)(Math.random()*MAXY);
    private int direction = 0;
 
 	public void init()
