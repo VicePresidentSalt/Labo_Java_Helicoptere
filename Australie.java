@@ -183,8 +183,6 @@ public class Australie extends JApplet implements Runnable
             break;
          }
          case 1:
-
-       
          {
             if(posX-DEPLACEMENT > 0 || posY+DEPLACEMENT < MAXY)
             {
