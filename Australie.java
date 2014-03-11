@@ -232,7 +232,7 @@ public class Australie extends JApplet implements Runnable
          try
          {
             bougerPoint();
-            Thread.sleep(100); //delai 3 secondes...a checker
+            Thread.sleep(500); //delai 3 secondes...a checker
             repaint();
          }
          catch (InterruptedException ie)
